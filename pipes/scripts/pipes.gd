@@ -8,14 +8,23 @@ extends Node2D
 signal hit
 signal scored
 
+var hitPlayed : bool = false
+
 func _on_lower_pipe_body_entered(body: Node2D) -> void:
+	if not hitPlayed:
+		$BonkSound.play()
 	hit.emit()
+	hitPlayed = true
 
 func _on_upper_pipe_body_entered(body: Node2D) -> void:
+	if not hitPlayed:
+		$BonkSound.play()
 	hit.emit()
+	hitPlayed = true
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	$ScoreSound.play()
 	scored.emit()
 
 

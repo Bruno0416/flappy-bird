@@ -20,8 +20,7 @@ func _ready():
 	pipeSpawner.pipeHit.connect(stop_game)
 	bird.flapStarted.connect(start_game)
 	bird.hitCeiling.connect(stop_game)
-
-	ground.body_entered.connect(_on_ground_hit)
+	ground.body_entered.connect(func(_body): stop_game())
 
 	new_game()
 
@@ -55,7 +54,13 @@ func stop_game():
 	running = false
 	bird.falling = true
 	pipeSpawner.stop_spawning()
-	uiManager.show_game_over()
 
-func _on_ground_hit():
-	stop_game()
+	# reproducir sonido de game over
+	$DieSound.play()
+
+
+	if score > ConfigManager.high_score:
+		ConfigManager.high_score = score
+		ConfigManager.save_data()
+
+	uiManager.show_game_over()

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cpdko3akf5rgu" path="res://bird/scripts/bird.gd" id="1_u8hna"]
 [ext_resource type="Texture2D" uid="uid://egjtj1rpqwvm" path="res://bird/assets/bird.png" id="2_u8hna"]
 [ext_resource type="Texture2D" uid="uid://lbjmfe343vj" path="res://bird/assets/yellow_bird.png" id="3_dj8fi"]
+[ext_resource type="AudioStream" uid="uid://di8qgnx4e3fjy" path="res://common/audio/wing.wav" id="5_dj8fi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u8hna"]
 atlas = ExtResource("1_sbly8")
@@ -102,3 +103,7 @@ animation = &"flying_defa"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=202483088]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_sbly8")
+
+[node name="FlapSound" type="AudioStreamPlayer" parent="." unique_id=1345520520]
+stream = ExtResource("5_dj8fi")
+volume_db = -25.0

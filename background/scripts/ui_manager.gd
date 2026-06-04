@@ -1,19 +1,20 @@
 extends CanvasLayer
 
 @export var scoreLabel: Label
-@export var gameOverScreen: PackedScene
+@export var gameOverScreen: CanvasLayer
 
-signal restart_requested
+signal restartRequested
 
 func reset_ui():
-    gameOverScreen.hide()
-    update_score(0)
+	gameOverScreen.hide()
+	update_score(0)
 
 func update_score(new_score: int):
-    scoreLabel.text = str(new_score)
+	scoreLabel.text = str(new_score)
 
 func show_game_over():
-    gameOverScreen.show()
+	gameOverScreen.show()
 
-func _on_restart_button_pressed():
-    restart_requested.emit()
+
+func _on_game_over_restart() -> void:
+	restartRequested.emit()

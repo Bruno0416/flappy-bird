@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://w56cy8a2euvf" path="res://pipes/scripts/pipes.gd" id="1_ahdti"]
 [ext_resource type="Texture2D" uid="uid://ct7g1e0bcybqp" path="res://pipes/assets/pipe-green.png" id="1_dmg0m"]
+[ext_resource type="AudioStream" uid="uid://cums6d2xshpqe" path="res://common/audio/bonk.wav" id="3_wugop"]
+[ext_resource type="AudioStream" uid="uid://dtwkixgdv7txt" path="res://common/audio/point.wav" id="4_sxl4r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ahdti"]
 size = Vector2(72, 480)
@@ -47,6 +49,14 @@ shape = SubResource("RectangleShape2D_dmg0m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=18843026]
 position = Vector2(52, 1.5)
 shape = SubResource("RectangleShape2D_u64k8")
+
+[node name="BonkSound" type="AudioStreamPlayer" parent="." unique_id=403863538]
+stream = ExtResource("3_wugop")
+volume_db = -10.0
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="." unique_id=1213935889]
+stream = ExtResource("4_sxl4r")
+volume_db = -20.0
 
 [connection signal="body_entered" from="UpperPipe" to="." method="_on_upper_pipe_body_entered"]
 [connection signal="body_entered" from="LowerPipe" to="." method="_on_lower_pipe_body_entered"]
