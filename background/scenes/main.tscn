@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://deh2wef23b40o"]
+
+[ext_resource type="Script" uid="uid://yqje83qpkfhp" path="res://background/scripts/main.gd" id="1_wg5rf"]
+[ext_resource type="PackedScene" uid="uid://djqpjhb5587w7" path="res://bird/scenes/bird_sprites.tscn" id="2_l8sfb"]
+[ext_resource type="Texture2D" uid="uid://cmbj7ciss1vll" path="res://background/assets/bg.png" id="2_vi4oe"]
+[ext_resource type="PackedScene" uid="uid://yr7he0k7dudi" path="res://background/scenes/ground.tscn" id="4_vi4oe"]
+[ext_resource type="PackedScene" uid="uid://6fgfd3k48g0h" path="res://pipes/scene/pipes.tscn" id="5_ygcqq"]
+[ext_resource type="FontFile" uid="uid://dxpkqls1ewbqs" path="res://common/font/flappy-font.ttf" id="6_3pwa4"]
+[ext_resource type="Script" uid="uid://cxxdxfu4nuvyw" path="res://background/scenes/ui_manager.gd" id="7_14ql8"]
+[ext_resource type="PackedScene" uid="uid://idqrxf305jga" path="res://ui/scene/game_over.tscn" id="7_enlpv"]
+[ext_resource type="Script" uid="uid://b30ljrm1552vs" path="res://background/scripts/pipe_spawner.gd" id="8_jm0w6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_enlpv"]
+font = ExtResource("6_3pwa4")
+font_size = 84
+
+[node name="Main" type="Node" unique_id=10881324]
+script = ExtResource("1_wg5rf")
+
+[node name="UIManager" type="CanvasLayer" parent="." unique_id=1007655533 node_paths=PackedStringArray("scoreLabel", "gameOverScreen")]
+script = ExtResource("7_14ql8")
+scoreLabel = NodePath("ScoreLabel")
+gameOverScreen = NodePath("GameOver")
+
+[node name="ScoreLabel" type="Label" parent="UIManager" unique_id=1437392761]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_top = 15.0
+offset_right = 34.5
+offset_bottom = 99.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_enlpv")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="GameOver" parent="UIManager" unique_id=989449007 instance=ExtResource("7_enlpv")]
+
+[node name="PipeSpawner" type="Node2D" parent="." unique_id=996287836]
+z_index = 1
+script = ExtResource("8_jm0w6")
+pipeScene = ExtResource("5_ygcqq")
+
+[node name="PipeTimer" type="Timer" parent="PipeSpawner" unique_id=457866479]
+wait_time = 1.5
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1582253605]
+texture_filter = 1
+texture = ExtResource("2_vi4oe")
+centered = false
+
+[node name="Bird" parent="." unique_id=963917836 instance=ExtResource("2_l8sfb")]
+
+[node name="Ground" parent="." unique_id=69630759 instance=ExtResource("4_vi4oe")]
+z_index = 1
+
+[connection signal="restart" from="UIManager/GameOver" to="UIManager" method="_on_game_over_restart"]
+[connection signal="timeout" from="PipeSpawner/PipeTimer" to="PipeSpawner" method="_on_pipe_timer_timeout"]
+[connection signal="hit" from="Ground" to="." method="_on_ground_hit"]

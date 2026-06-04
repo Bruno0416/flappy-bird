@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://6fgfd3k48g0h"]
+
+[ext_resource type="Script" uid="uid://w56cy8a2euvf" path="res://pipes/scripts/pipes.gd" id="1_ahdti"]
+[ext_resource type="Texture2D" uid="uid://ct7g1e0bcybqp" path="res://pipes/assets/pipe-green.png" id="1_dmg0m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahdti"]
+size = Vector2(72, 480)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dmg0m"]
+size = Vector2(72, 480)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u64k8"]
+size = Vector2(16, 273)
+
+[node name="Pipes" type="Node2D" unique_id=1212388243 groups=["pipesGroup"]]
+position = Vector2(-1, 0)
+script = ExtResource("1_ahdti")
+
+[node name="UpperPipe" type="Area2D" parent="." unique_id=1319661361]
+
+[node name="Sprite2D" type="Sprite2D" parent="UpperPipe" unique_id=662119186]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_dmg0m")
+offset = Vector2(0, -250)
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperPipe" unique_id=633666768]
+position = Vector2(0, -375)
+shape = SubResource("RectangleShape2D_ahdti")
+
+[node name="LowerPipe" type="Area2D" parent="." unique_id=132818559]
+position = Vector2(1, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="LowerPipe" unique_id=1570697254]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_dmg0m")
+offset = Vector2(0, 250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerPipe" unique_id=1774649986]
+position = Vector2(0, 375)
+shape = SubResource("RectangleShape2D_dmg0m")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1437565757]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=18843026]
+position = Vector2(52, 1.5)
+shape = SubResource("RectangleShape2D_u64k8")
+
+[connection signal="body_entered" from="UpperPipe" to="." method="_on_upper_pipe_body_entered"]
+[connection signal="body_entered" from="LowerPipe" to="." method="_on_lower_pipe_body_entered"]
+[connection signal="body_exited" from="LowerPipe" to="." method="_on_lower_pipe_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
